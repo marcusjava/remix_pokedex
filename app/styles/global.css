@@ -1,0 +1,42 @@
+:root {
+  --hs-links: 48 100%;
+  --color-foreground: hsl(0, 17%, 91%);
+  --color-background: hsl(277, 41%, 86%);
+  --color-links: hsl(var(--hs-links) 50%);
+  --color-links-hover: hsl(var(--hs-links) 45%);
+  --color-border: hsl(277, 85%, 38%);
+  --color-invalid: hsl(356, 100%, 71%);
+  --gradient-background: radial-gradient(
+    circle,
+    rgb(249, 246, 252) 0%,
+    rgb(233, 218, 243) 35%,
+    rgb(237, 222, 245) 100%
+  );
+  --font-body: -apple-system, "Segoe UI", Helvetica Neue, Helvetica, Roboto,
+    Arial, sans-serif, system-ui, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-display: baloo, var(--font-body);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  font-family: -apple-system, "Montserrat", BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body html {
+  height: 100%;
+}
+a {
+  text-decoration: none;
+  color: none;
+}

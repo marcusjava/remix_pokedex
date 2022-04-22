@@ -1,0 +1,32 @@
+form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+form input {
+  margin: 1.5rem 0;
+  border-radius: 25px;
+  border: 1px solid #ef5350;
+  font-size: 1rem;
+  width: 40%;
+  padding: 0.5rem 1rem;
+  outline: none;
+}
+
+form button {
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  background-color: #fecc00;
+  color: #ef5350;
+  border: none;
+  border: 1px solid #ef5350;
+  cursor: pointer;
+}
+
+form button:hover {
+  opacity: 0.8;
+}
