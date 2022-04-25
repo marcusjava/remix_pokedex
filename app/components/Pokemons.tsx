@@ -1,4 +1,10 @@
-export default function Pokemons() {
+import type { PokemonsFormatted } from "~/utils/types";
+
+type Props = {
+  pokemons: PokemonsFormatted;
+};
+
+export default function Pokemons({ pokemons }: Props) {
   return (
     <div className="pokemons__container">
       <div className="pokemon__list">

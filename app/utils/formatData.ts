@@ -1,34 +1,13 @@
 import type {
   ExtractedStat,
   Pokemon,
+  PokemonsFormatted,
   PokemonsProps,
   PokemonsResponseData,
-  PokemonsReturnData,
   ResponseAbility,
 } from "./types";
-
-export const formatPokemonsData = async ({
-  next,
-  results,
-}: PokemonsProps): Promise<PokemonsReturnData> => {
-  const promises = [];
-
-  for (let pokemon of results) {
-    const response = (await fetch(pokemon.url)) as PokemonsResponseData;
-
-    promises.push({
-      id: response.data?.id,
-      name: response.data?.name,
-      image: response.data?.sprites.other.dream_world.front_default,
-      captured: false,
-    });
-  }
-
-  const pokemons = await Promise.all(promises);
-
-  return { next, pokemons };
-};
-
+import axios from "axios";
+import type { AxiosResponse } from "axios";
 const cardColors = {
   rock: "rgb(148, 81, 81)",
   ghost: "rgb(247, 247, 247)",
@@ -41,6 +20,31 @@ const cardColors = {
   grass: "#e2f9e1",
   water: "#e0f1fd",
   ground: "#C2B232",
+};
+
+export const formatPokemonsData = async ({
+  next = 0,
+  results,
+}: PokemonsProps): Promise<PokemonsFormatted> => {
+  const promises = [];
+
+  for (let pokemon of results) {
+    const response = await axios.get<
+      AxiosResponse,
+      Omit<PokemonsResponseData, "color" | "captured">
+    >(pokemon.url);
+    promises.push({
+      id: response.data?.id,
+      name: response.data?.name,
+      image: response.data?.sprites.other.dream_world.front_default,
+      captured: false,
+      color: cardColors[response.data?.types[0].type.name || "normal"],
+    });
+  }
+
+  const pokemons = await Promise.all(promises);
+
+  return { next, pokemons };
 };
 
 export const formatPokemonData = async (data: Pokemon) => {

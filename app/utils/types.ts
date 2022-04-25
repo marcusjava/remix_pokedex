@@ -28,28 +28,26 @@ export type PokemonsResponseData = {
         };
       };
     };
-    type: string;
+    types: {
+      slot: number;
+      type: {
+        name: PokemonTypes;
+        url: string;
+      };
+    }[];
     captured?: boolean;
+    color: string;
   };
-};
-
-export type PokemonsReturnData = {
-  next: number | undefined;
-  pokemons: {
-    id: number | undefined;
-    name: string | undefined;
-    image: string | undefined;
-    captured: boolean;
-  }[];
 };
 
 export type PokemonsFormatted = {
   next?: number;
-  pokemons?: {
-    id: number;
-    name: string;
-    image: string;
-    captured?: boolean;
+  pokemons: {
+    id?: number;
+    name?: string;
+    image?: string;
+    captured: boolean;
+    color: string;
   }[];
 };
 

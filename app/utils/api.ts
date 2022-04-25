@@ -8,10 +8,12 @@ type PokemonsProps = {
   offset?: number;
 };
 
+type ReturnPokemons = { name: string; url: string }[];
 export const getPokemons = async ({
   limit = 20,
   offset = 0,
-}: PokemonsProps) => {
-  const response = await api.get("/pokemons?limit=10");
-  console.log(response.data);
+}: PokemonsProps): Promise<ReturnPokemons> => {
+  const response = await api.get("/pokemon?limit=10");
+
+  return response.data?.results;
 };
