@@ -3,10 +3,14 @@ import type {
   Pokemon,
   PokemonsProps,
   PokemonsResponseData,
+  PokemonsReturnData,
   ResponseAbility,
 } from "./types";
 
-export const formatPokemonsData = async ({ next, results }: PokemonsProps) => {
+export const formatPokemonsData = async ({
+  next,
+  results,
+}: PokemonsProps): Promise<PokemonsReturnData> => {
   const promises = [];
 
   for (let pokemon of results) {
@@ -23,6 +27,20 @@ export const formatPokemonsData = async ({ next, results }: PokemonsProps) => {
   const pokemons = await Promise.all(promises);
 
   return { next, pokemons };
+};
+
+const cardColors = {
+  rock: "rgb(148, 81, 81)",
+  ghost: "rgb(247, 247, 247)",
+  electric: "rgb(255, 255, 161)",
+  bug: "#f6d6a7",
+  poison: "#e0a7f6",
+  normal: "#f4f4f4",
+  fairy: "rgba(255, 192, 203, 0.863)",
+  fire: "#fbe3df",
+  grass: "#e2f9e1",
+  water: "#e0f1fd",
+  ground: "#C2B232",
 };
 
 export const formatPokemonData = async (data: Pokemon) => {
@@ -61,6 +79,8 @@ export const formatPokemonData = async (data: Pokemon) => {
     name: type.name,
     url: type.url,
   }));
+
+  const color = cardColors[types[0].name];
   const promises = [];
 
   for (let item of data.abilities) {
@@ -79,6 +99,7 @@ export const formatPokemonData = async (data: Pokemon) => {
   return {
     ...data,
     types,
+    color,
     height,
     weight,
     stats: { hp, attack, defense, speed, specialAttack, specialDefense },

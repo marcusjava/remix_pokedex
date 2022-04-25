@@ -33,6 +33,16 @@ export type PokemonsResponseData = {
   };
 };
 
+export type PokemonsReturnData = {
+  next: number | undefined;
+  pokemons: {
+    id: number | undefined;
+    name: string | undefined;
+    image: string | undefined;
+    captured: boolean;
+  }[];
+};
+
 export type PokemonsFormatted = {
   next?: number;
   pokemons?: {
@@ -43,6 +53,19 @@ export type PokemonsFormatted = {
   }[];
 };
 
+export type PokemonTypes =
+  | "rock"
+  | "ghost"
+  | "electric"
+  | "bug"
+  | "poison"
+  | "normal"
+  | "fairy"
+  | "fire"
+  | "grass"
+  | "water"
+  | "ground";
+
 export type Pokemon = {
   order: number;
   name: string;
@@ -51,7 +74,7 @@ export type Pokemon = {
   types: {
     slot: string;
     type: {
-      name: string;
+      name: PokemonTypes;
       url: string;
     };
   }[];
