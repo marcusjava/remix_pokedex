@@ -12,7 +12,7 @@ export default function Header() {
       <div className="menu_container">
         <span className="user">Seja bem vindo!</span>
         <span className="logout">Sair</span>
-        <img src={ball} alt="PokeBall" className="pokeball" />
+        <img src={ball} alt="PokeBall" className="header__pokeball" />
       </div>
     </div>
   );

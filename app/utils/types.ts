@@ -47,6 +47,7 @@ export type PokemonsFormatted = {
     name?: string;
     image?: string;
     captured: boolean;
+    typeName?: PokemonTypes;
     color: string;
   }[];
 };

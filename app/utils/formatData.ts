@@ -37,6 +37,7 @@ export const formatPokemonsData = async ({
       id: response.data?.id,
       name: response.data?.name,
       image: response.data?.sprites.other.dream_world.front_default,
+      typeName: response.data?.types[0].type.name,
       captured: false,
       color: cardColors[response.data?.types[0].type.name || "normal"],
     });
