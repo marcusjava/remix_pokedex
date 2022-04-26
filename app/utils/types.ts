@@ -109,34 +109,22 @@ type ExtractedStats = Pokemon["stats"];
 export type ExtractedStat = ExtractedStats[number];
 
 export type PokemonFormatted = {
-  id: number;
   name: string;
   abilities: {
     ability: string;
-    effect: string;
+    effect?: string;
   }[];
-  base_experience: number;
   captured: boolean;
-  forms: {
-    name: string;
-    url: string;
-  }[];
-  game_indices: {
-    game_index: number;
-    version: {
-      name: string;
-      url: string;
-    };
-  }[];
+  color: string;
   height: string;
   weight: number;
   stats: {
-    hp: number;
-    attack: number;
-    defense: number;
-    specialAttack: number;
-    specialDefense: number;
-    speed: number;
+    hp?: number;
+    attack?: number;
+    defense?: number;
+    specialAttack?: number;
+    specialDefense?: number;
+    speed?: number;
   };
   types: {
     name: string;

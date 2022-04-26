@@ -1,6 +1,7 @@
 import type {
   ExtractedStat,
   Pokemon,
+  PokemonFormatted,
   PokemonsFormatted,
   PokemonsProps,
   PokemonsResponseData,
@@ -48,7 +49,9 @@ export const formatPokemonsData = async ({
   return { next, pokemons };
 };
 
-export const formatPokemonData = async (data: Pokemon) => {
+export const formatPokemonData = async (
+  data: Pokemon
+): Promise<PokemonFormatted> => {
   let hp, attack, defense, speed, specialAttack, specialDefense;
   data.stats.forEach((item: ExtractedStat) => {
     switch (item.stat.name) {
@@ -85,11 +88,13 @@ export const formatPokemonData = async (data: Pokemon) => {
     url: type.url,
   }));
 
-  const color = cardColors[types[0].name];
+  const color = cardColors[types[0].name || "normal"];
   const promises = [];
 
   for (let item of data.abilities) {
-    const response = (await fetch(item.ability.url)) as ResponseAbility;
+    const response = await axios.get<AxiosResponse, ResponseAbility>(
+      item.ability.url
+    );
 
     const short_effect = response.data?.effect_entries
       .filter((entry) => entry.language.name === "en")
@@ -102,7 +107,7 @@ export const formatPokemonData = async (data: Pokemon) => {
   console.log("short effect", abilities);
 
   return {
-    ...data,
+    name: data.name,
     types,
     color,
     height,
