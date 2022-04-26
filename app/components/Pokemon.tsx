@@ -6,6 +6,8 @@ interface Props {
 
 export default function Pokemon({ pokemon }: Props) {
   console.log({ pokemon });
+  const { hp, specialAttack, specialDefense, defense, attack, speed } =
+    pokemon.stats;
   return (
     <div className="detail__container">
       <div className="avatar__container">
@@ -13,37 +15,63 @@ export default function Pokemon({ pokemon }: Props) {
       </div>
       <div className="detail">
         <h1 className="title">{pokemon.name}</h1>
-        <span className="badge" style={{ backgroundColor: pokemon.color }}>
-          Grass
-        </span>
+        {pokemon.types.map((type) => (
+          <span
+            className="badge"
+            key={type.name}
+            style={{ backgroundColor: type.color }}
+          >
+            {type.name}
+          </span>
+        ))}
         <p>Peso: {pokemon.weight}</p>
         <p>Altura: {pokemon.height}</p>
 
         <div className="stats__container">
-          <p className="input-progress">
-            <label htmlFor="hp">HP</label>
-            <progress id="hp" value="43" max="100"></progress>
-          </p>
-          <p className="input-progress">
-            <label htmlFor="attack">Attack</label>
-            <progress id="attack" value="43" max="100"></progress>
-          </p>
-          <p className="input-progress">
-            <label htmlFor="hp">Defense</label>
-            <progress id="defense" value="43" max="100"></progress>
-          </p>
-          <p className="input-progress">
-            <label htmlFor="special-attack">Special attack</label>
-            <progress id="special-attack" value="43" max="100"></progress>
-          </p>
-          <p className="input-progress">
-            <label htmlFor="special-defense">Special defense</label>
-            <progress id="special-defense" value="43" max="100"></progress>
-          </p>
-          <p className="input-progress">
-            <label htmlFor="speed">Speed</label>
-            <progress id="speed" value="43" max="100"></progress>
-          </p>
+          {hp && (
+            <p className="input-progress">
+              <label htmlFor="hp">HP</label>
+              <progress id="hp" value={hp} max="100"></progress>
+            </p>
+          )}
+          {attack && (
+            <p className="input-progress">
+              <label htmlFor="attack">Attack</label>
+              <progress id="attack" value={attack} max="100"></progress>
+            </p>
+          )}
+          {defense && (
+            <p className="input-progress">
+              <label htmlFor="hp">Defense</label>
+              <progress id="defense" value={defense} max="100"></progress>
+            </p>
+          )}
+          {specialAttack && (
+            <p className="input-progress">
+              <label htmlFor="special-attack">Special attack</label>
+              <progress
+                id="special-attack"
+                value={specialAttack}
+                max="100"
+              ></progress>
+            </p>
+          )}
+          {specialDefense && (
+            <p className="input-progress">
+              <label htmlFor="special-defense">Special defense</label>
+              <progress
+                id="special-defense"
+                value={specialDefense}
+                max="100"
+              ></progress>
+            </p>
+          )}
+          {speed && (
+            <p className="input-progress">
+              <label htmlFor="speed">Speed</label>
+              <progress id="speed" value={speed} max="100"></progress>
+            </p>
+          )}
         </div>
         <button className="button__danger">Remover</button>
       </div>

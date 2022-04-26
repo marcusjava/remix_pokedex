@@ -89,6 +89,7 @@ export const formatPokemonData = async (
   const types = data.types.map(({ type }) => ({
     name: type.name,
     url: type.url,
+    color: cardColors[type.name || "normal"],
   }));
 
   const color = cardColors[types[0].name || "normal"];

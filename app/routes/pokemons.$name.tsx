@@ -1,5 +1,4 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/react/routeModules";
 import Error from "~/components/Error";

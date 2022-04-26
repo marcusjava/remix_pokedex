@@ -130,5 +130,6 @@ export type PokemonFormatted = {
   types: {
     name: string;
     url: string;
+    color: string;
   }[];
 };
