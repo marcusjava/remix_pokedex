@@ -3,23 +3,27 @@ import type {
   LinksFunction,
   LoaderFunction,
 } from "@remix-run/node";
-import Header from "~/components/Header";
 import Pokemons from "~/components/Pokemons";
 import SearchInput from "~/components/SearchInput";
-import headerUrl from "~/styles/header.css";
 import inputUrl from "~/styles/search_input.css";
 import pokemonsUrl from "~/styles/pokemons.css";
 import pokemonUrl from "~/styles/pokemon.css";
+import errorUrl from "~/styles/error.css";
+import notfoundUrl from "~/styles/not_found.css";
 import { getPokemons } from "~/utils/api";
 import { formatPokemonsData } from "~/utils/formatData";
 import { useLoaderData } from "@remix-run/react";
 import type { PokemonsFormatted } from "~/utils/types";
+import Error from "~/components/Error";
+import NotFound from "~/components/NotFound";
 
 export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: inputUrl },
     { rel: "stylesheet", href: pokemonsUrl },
     { rel: "stylesheet", href: pokemonUrl },
+    { rel: "stylesheet", href: errorUrl },
+    { rel: "stylesheet", href: notfoundUrl },
   ];
 };
 
@@ -29,12 +33,12 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({
   params,
-}): Promise<LoaderData> => {
+}): Promise<LoaderData | Response> => {
   //lista de pokemons
   // retornar a lista
   //TRATAR ERROS!!!!!!!
-  const response = await getPokemons({});
-  const { pokemons } = await formatPokemonsData({ next: 0, results: response });
+  const data = await getPokemons({});
+  const { pokemons } = await formatPokemonsData({ next: 0, results: data });
   return { pokemons };
 };
 
@@ -49,4 +53,12 @@ export default function Index() {
       <Pokemons pokemons={pokemons} />
     </div>
   );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return <Error error={error} />;
+}
+
+export function CatchBoundary() {
+  return <NotFound message="We couldn'd find a course with provided ID" />;
 }

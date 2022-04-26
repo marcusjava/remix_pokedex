@@ -1,0 +1,17 @@
+.notfound__container {
+  border-top: 1px solid gray;
+  background-color: rgb(241, 232, 232);
+  border-radius: 5px;
+  min-width: 50px;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+p {
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity));
+}

@@ -16,7 +16,7 @@ export const getPokemons = async ({
   limit = 20,
   offset = 0,
 }: PokemonsProps): Promise<ReturnPokemons> => {
-  const response = await api.get("/pokemon?limit=10");
+  const response = await api.get(`/pokemon?limit=${limit}`);
 
   return response.data?.results;
 };
