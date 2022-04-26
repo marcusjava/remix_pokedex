@@ -53,6 +53,7 @@ export const formatPokemonData = async (
   data: Pokemon
 ): Promise<PokemonFormatted> => {
   let hp, attack, defense, speed, specialAttack, specialDefense;
+
   data.stats.forEach((item: ExtractedStat) => {
     switch (item.stat.name) {
       case "hp":
@@ -83,6 +84,8 @@ export const formatPokemonData = async (
   //convertendo para kg
   const weight = data.weight / 10;
 
+  const image = data.sprites.other.dream_world.front_default;
+
   const types = data.types.map(({ type }) => ({
     name: type.name,
     url: type.url,
@@ -108,6 +111,7 @@ export const formatPokemonData = async (
 
   return {
     name: data.name,
+    image,
     types,
     color,
     height,

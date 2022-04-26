@@ -115,6 +115,7 @@ export type PokemonFormatted = {
     effect?: string;
   }[];
   captured: boolean;
+  image: string;
   color: string;
   height: string;
   weight: number;

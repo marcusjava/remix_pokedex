@@ -1,5 +1,6 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/react/routeModules";
 import Pokemon from "~/components/Pokemon";
 import detailsStylesUrl from "~/styles/pokemon_detail.css";
@@ -19,7 +20,6 @@ export const loader: LoaderFunction = async ({
   params,
 }): Promise<LoaderData> => {
   const { name } = params;
-
   const data = await getPokemon(name);
   const pokemon = await formatPokemonData(data);
   return { pokemon };
@@ -28,5 +28,6 @@ export const loader: LoaderFunction = async ({
 export const action: ActionFunction = async ({ request, params }) => {};
 
 export default function PokemonDetail() {
-  return <Pokemon />;
+  const { pokemon } = useLoaderData<LoaderData>();
+  return <Pokemon pokemon={pokemon} />;
 }
