@@ -107,7 +107,6 @@ export const formatPokemonData = async (
   }
 
   const abilities = await Promise.all(promises);
-  console.log("short effect", abilities);
 
   return {
     name: data.name,

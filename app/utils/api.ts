@@ -22,7 +22,7 @@ export const getPokemons = async ({
 };
 
 export const getPokemon = async (name?: string): Promise<Pokemon> => {
-  //invariant(name, "Please provide an name as string");
+  invariant(name, "Please provide an name as string");
   const response = await api.get(`/pokemon/${name}`);
   return response.data;
 };

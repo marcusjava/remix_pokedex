@@ -5,8 +5,8 @@ import ball from "~/assets/ball.png";
 
 export default function Header() {
   return (
-    <div className="header__container">
-      <Link to="/">
+    <header className="header__container">
+      <Link to="/pokemons">
         <img src={logo} alt="Pokemon" className="logo" />
       </Link>
       <div className="menu_container">
@@ -14,6 +14,6 @@ export default function Header() {
         <span className="logout">Sair</span>
         <img src={ball} alt="PokeBall" className="header__pokeball" />
       </div>
-    </div>
+    </header>
   );
 }

@@ -17,7 +17,6 @@ import type { PokemonsFormatted } from "~/utils/types";
 
 export const links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: headerUrl },
     { rel: "stylesheet", href: inputUrl },
     { rel: "stylesheet", href: pokemonsUrl },
     { rel: "stylesheet", href: pokemonUrl },
@@ -45,10 +44,9 @@ export default function Index() {
   const { pokemons } = useLoaderData<LoaderData>();
 
   return (
-    <>
-      <Header />;
+    <div style={{ margin: "2rem 0" }}>
       <SearchInput />
       <Pokemons pokemons={pokemons} />
-    </>
+    </div>
   );
 }

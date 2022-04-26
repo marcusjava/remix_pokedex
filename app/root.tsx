@@ -7,7 +7,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import Header from "./components/Header";
 import globalStylesUrl from "./styles/global.css";
+import headerUrl from "~/styles/header.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -20,6 +22,7 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: globalStylesUrl,
   },
+  { rel: "stylesheet", href: headerUrl },
 ];
 
 export default function App() {
@@ -30,6 +33,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Header />;
         <Outlet />
         <ScrollRestoration />
         <Scripts />
