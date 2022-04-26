@@ -33,6 +33,7 @@ export const loader: LoaderFunction = async ({
 }): Promise<LoaderData> => {
   //lista de pokemons
   // retornar a lista
+  //TRATAR ERROS!!!!!!!
   const response = await getPokemons({});
   const { pokemons } = await formatPokemonsData({ next: 0, results: response });
   return { pokemons };
@@ -42,7 +43,6 @@ export const action: ActionFunction = async ({ request, params }) => {};
 
 export default function Index() {
   const { pokemons } = useLoaderData<LoaderData>();
-  console.log(pokemons);
 
   return (
     <>
