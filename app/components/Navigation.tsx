@@ -9,8 +9,12 @@ interface Props {
 }
 export default function Navigation({ handleNavigation, offset, limit }: Props) {
   return (
-    <div className="navigation">
-      <button onClick={handleNavigation} data-nav-operation="previous">
+    <div className="navigation__container">
+      <button
+        onClick={handleNavigation}
+        data-nav-operation="previous"
+        disabled={offset === "0"}
+      >
         Previous
       </button>
       <button onClick={handleNavigation} data-nav-operation="next">

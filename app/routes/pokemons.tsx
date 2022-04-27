@@ -9,15 +9,12 @@ import SearchInput from "~/components/SearchInput";
 import inputUrl from "~/styles/search_input.css";
 import pokemonsUrl from "~/styles/pokemons.css";
 import pokemonUrl from "~/styles/pokemon.css";
+import navigationUrl from "~/styles/navigation.css";
 import errorUrl from "~/styles/error.css";
 import notfoundUrl from "~/styles/not_found.css";
 import { getPokemons } from "~/utils/api";
 import { formatPokemonsData } from "~/utils/formatData";
-import {
-  useLoaderData,
-  useNavigate,
-  useNavigationType,
-} from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 import type { HTMLElementEvent, PokemonsFormatted } from "~/utils/types";
 import Error from "~/components/Error";
 import NotFound from "~/components/NotFound";
@@ -30,6 +27,7 @@ export const links: LinksFunction = () => {
     { rel: "stylesheet", href: pokemonUrl },
     { rel: "stylesheet", href: errorUrl },
     { rel: "stylesheet", href: notfoundUrl },
+    { rel: "stylesheet", href: navigationUrl },
   ];
 };
 
@@ -44,8 +42,9 @@ export const loader: LoaderFunction = async ({
   params,
 }): Promise<LoaderData> => {
   const url = new URL(request.url);
-  const limit = url.searchParams.get("limit") || "10";
+  const limit = url.searchParams.get("limit") || "20";
   const offset = url.searchParams.get("offset") || "0";
+
   const data = await getPokemons({
     limit: parseInt(limit),
     offset: parseInt(offset),
@@ -66,6 +65,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 export default function Index() {
   const navigate = useNavigate();
   const { pokemons, limit, offset } = useLoaderData<LoaderData>();
+  console.log({ offset, limit });
 
   const handleNavigation = (
     e: HTMLElementEvent<HTMLButtonElement, MouseEvent>
