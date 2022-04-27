@@ -65,7 +65,10 @@ export const action: ActionFunction = async ({ request, params }) => {
 export default function Index() {
   const navigate = useNavigate();
   const { pokemons, limit, offset } = useLoaderData<LoaderData>();
-  console.log({ offset, limit });
+
+  if (!pokemons || !pokemons.length) {
+    return <h1>Loading...</h1>;
+  }
 
   const handleNavigation = (
     e: HTMLElementEvent<HTMLButtonElement, MouseEvent>

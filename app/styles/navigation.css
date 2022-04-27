@@ -18,5 +18,5 @@
 
 .navigation__container button:disabled {
   opacity: 0.4;
-  cursor: none;
+  cursor: default;
 }
