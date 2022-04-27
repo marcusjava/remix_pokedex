@@ -5,7 +5,6 @@ interface Props {
 }
 
 export default function Pokemon({ pokemon }: Props) {
-  console.log({ pokemon });
   const { hp, specialAttack, specialDefense, defense, attack, speed } =
     pokemon.stats;
   return (

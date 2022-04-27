@@ -1,7 +1,7 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useCatch, useLoaderData, useParams } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/react/routeModules";
-import Error from "~/components/Error";
+import ErrorComponent from "~/components/Error";
 import NotFound from "~/components/NotFound";
 import Pokemon from "~/components/Pokemon";
 import detailsStylesUrl from "~/styles/pokemon_detail.css";
@@ -26,7 +26,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({
   params,
-}): Promise<LoaderData> => {
+}): Promise<LoaderData | Response> => {
   const { name } = params;
   const data = await getPokemon(name);
   if (!data) {
@@ -44,9 +44,16 @@ export default function PokemonDetail() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return <Error error={error} />;
+  return <ErrorComponent error={error} />;
 }
 
 export function CatchBoundary() {
-  return <NotFound message="We couldn'd find a pokemon with a given name" />;
+  const caught = useCatch();
+  const { name } = useParams();
+  if (caught.status === 404) {
+    <NotFound
+      message={`We couldn'd find a pokemon with a given name - ${name}`}
+    />;
+  }
+  throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }

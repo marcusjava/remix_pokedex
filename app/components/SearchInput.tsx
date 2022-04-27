@@ -1,8 +1,8 @@
 export default function SearchInput() {
   return (
-    <form action="">
-      <input type="text" />
-      <button>Ir</button>
+    <form method="post">
+      <input type="text" name="search" required />
+      <button type="submit">Ir</button>
     </form>
   );
 }

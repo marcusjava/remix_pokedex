@@ -3,6 +3,7 @@ import type {
   LinksFunction,
   LoaderFunction,
 } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import Pokemons from "~/components/Pokemons";
 import SearchInput from "~/components/SearchInput";
 import inputUrl from "~/styles/search_input.css";
@@ -34,15 +35,19 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({
   params,
 }): Promise<LoaderData | Response> => {
-  //lista de pokemons
-  // retornar a lista
-  //TRATAR ERROS!!!!!!!
   const data = await getPokemons({});
   const { pokemons } = await formatPokemonsData({ next: 0, results: data });
   return { pokemons };
 };
 
-export const action: ActionFunction = async ({ request, params }) => {};
+export const action: ActionFunction = async ({ request, params }) => {
+  const form = await request.formData();
+  const searchInput = form.get("search");
+  if (!searchInput) {
+    redirect(".");
+  }
+  return redirect(`/pokemons/${searchInput}`);
+};
 
 export default function Index() {
   const { pokemons } = useLoaderData<LoaderData>();
