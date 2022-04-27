@@ -24,7 +24,8 @@ const cardColors = {
 };
 
 export const formatPokemonsData = async ({
-  next = 0,
+  next,
+  previous,
   results,
 }: PokemonsProps): Promise<PokemonsFormatted> => {
   const promises = [];
@@ -34,6 +35,7 @@ export const formatPokemonsData = async ({
       AxiosResponse,
       Omit<PokemonsResponseData, "color" | "captured">
     >(pokemon.url);
+
     promises.push({
       id: response.data?.id,
       name: response.data?.name,
@@ -46,7 +48,7 @@ export const formatPokemonsData = async ({
 
   const pokemons = await Promise.all(promises);
 
-  return { next, pokemons };
+  return { next, previous, pokemons };
 };
 
 export const formatPokemonData = async (

@@ -1,5 +1,8 @@
+import type React from "react";
+
 export type PokemonsProps = {
-  next?: number;
+  next?: string;
+  previous?: string;
   results: { name: string; url: string }[];
 };
 
@@ -18,6 +21,8 @@ export type ResponseAbility = {
 };
 
 export type PokemonsResponseData = {
+  next?: string;
+  previous?: string;
   data?: {
     id: number;
     name: string;
@@ -41,7 +46,8 @@ export type PokemonsResponseData = {
 };
 
 export type PokemonsFormatted = {
-  next?: number;
+  next?: string;
+  previous?: string;
   pokemons: {
     id?: number;
     name?: string;
@@ -50,6 +56,13 @@ export type PokemonsFormatted = {
     typeName?: PokemonTypes;
     color: string;
   }[];
+};
+
+export type HTMLElementEvent<T extends HTMLElement, U> = React.MouseEvent<
+  T,
+  U
+> & {
+  target: T;
 };
 
 export type PokemonTypes =

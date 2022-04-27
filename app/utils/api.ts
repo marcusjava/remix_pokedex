@@ -7,19 +7,23 @@ import type { Pokemon } from "./types";
 export const api = axios.create({ baseURL: "https://pokeapi.co/api/v2" });
 
 type PokemonsProps = {
-  limit?: number;
-  offset?: number;
+  limit: number;
+  offset: number;
 };
 
-type ReturnPokemons = { name: string; url: string }[];
+type ReturnPokemons = {
+  results: { name: string; url: string }[];
+};
 
 export const getPokemons = async ({
-  limit = 20,
-  offset = 0,
+  limit,
+  offset,
 }: PokemonsProps): Promise<ReturnPokemons> => {
-  const response = await api.get(`/pokemon?limit=${limit}`);
+  const response = await api.get(`/pokemon?offset=${offset}&limit=${limit}`);
 
-  return response.data?.results;
+  return {
+    results: response.data?.results,
+  };
 };
 
 export const getPokemon = async (name?: string): Promise<Pokemon> => {
