@@ -1,0 +1,65 @@
+.container {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: #ef5350;
+  margin: 100px 0;
+}
+
+.card__container {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #ef5350;
+  border-radius: 15px;
+  padding: 2rem;
+}
+
+.title {
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 1rem 0;
+}
+
+.btn {
+  padding: 10px 40px;
+  border: none;
+  background-color: #ef5350;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.btn__cancel {
+  padding: 10px 40px;
+  border: none;
+  background-color: #ef5350;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.error__message {
+  color: red;
+  margin-bottom: 2rem;
+}
