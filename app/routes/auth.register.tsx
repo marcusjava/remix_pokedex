@@ -42,8 +42,8 @@ function validatePassword(password: unknown) {
     return `Passwords must be at least 6 characters long`;
   }
 }
-function validatePasswordConfirm(password: unknown) {
-  if (typeof password !== "string" || password.length < 6) {
+function validatePasswordConfirm(password_confirm: unknown) {
+  if (typeof password_confirm !== "string" || password_confirm.length < 6) {
     return `Passwords must be at least 6 characters long`;
   }
 }
@@ -70,10 +70,10 @@ export const action: ActionFunction = async ({
     typeof password !== "string" ||
     typeof password_confirm !== "string"
   ) {
-    return badRequest({ formError: `Form not submitted correctly.` });
+    return badRequest({ formError: `Formulario não enviado corretamente .` });
   }
 
-  const fields = { username, password };
+  const fields = { username, password, password_confirm };
   const fieldErrors = {
     username: validateUsername(username),
     password: validatePassword(password),
@@ -88,7 +88,11 @@ export const action: ActionFunction = async ({
   if (password !== password_confirm) {
     return badRequest({
       fields,
-      formError: `Password and confirm password does not match`,
+      fieldErrors: {
+        password: "Senha e confirmação de senha não estão iguais!",
+        password_confirm: "Senha e confirmação de senha não estão iguais!",
+      },
+      formError: `Senha e confirmação de senha não estão iguais!`,
     });
   }
 
@@ -99,7 +103,10 @@ export const action: ActionFunction = async ({
     if (userExists) {
       return badRequest({
         fields,
-        formError: `User with username ${username} already exists`,
+        fieldErrors: {
+          username: `Usuario com o nome ${username} já está cadastrado!`,
+        },
+        formError: `Usuario com o nome ${username} já está cadastrado!`,
       });
     }
     // create the user
@@ -107,7 +114,7 @@ export const action: ActionFunction = async ({
     if (!user) {
       return badRequest({
         fields,
-        formError: `Something goes wrong when creating user`,
+        formError: `Algo de errado ocorreu ao tentar criar o usuario, tente novamente`,
       });
     }
 

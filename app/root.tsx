@@ -1,4 +1,8 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import type {
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -6,16 +10,22 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import Header from "./components/Header";
 import globalStylesUrl from "./styles/global.css";
 import headerUrl from "~/styles/header.css";
+import { getUser } from "./utils/session.server";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "New Remix App",
   viewport: "width=device-width,initial-scale=1",
 });
+
+interface LoaderData {
+  user: Awaited<ReturnType<typeof getUser>>;
+}
 
 export const links: LinksFunction = () => [
   {
@@ -25,7 +35,18 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: headerUrl },
 ];
 
+export const loader: LoaderFunction = async ({
+  request,
+}): Promise<LoaderData> => {
+  const user = await getUser(request);
+
+  return {
+    user,
+  };
+};
+
 export default function App() {
+  const { user } = useLoaderData<LoaderData>();
   return (
     <html lang="en">
       <head>
@@ -33,7 +54,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header />;
+        <Header user={user} />;
         <Outlet />
         <ScrollRestoration />
         <Scripts />

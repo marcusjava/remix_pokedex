@@ -11,11 +11,7 @@ export default function SignUp({ data, searchParams }: Props) {
     <div className="card__container">
       <h3 className="title">Registrar</h3>
       <p className="subtitle">Cadastre-se com seu usuario e senha</p>
-      <form
-        method="post"
-        action="/authentication/register"
-        className="signup__form"
-      >
+      <form method="post" className="signup__form">
         <div>
           <FormInput
             id="username"
@@ -83,6 +79,13 @@ export default function SignUp({ data, searchParams }: Props) {
               id="password-error"
             >
               {data.fieldErrors.password_confirm}
+            </p>
+          ) : null}
+        </div>
+        <div id="form-error-message">
+          {data?.formError ? (
+            <p className="form-error" role="alert">
+              {data.formError}
             </p>
           ) : null}
         </div>

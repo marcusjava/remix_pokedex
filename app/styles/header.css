@@ -39,6 +39,9 @@
   cursor: pointer;
   color: white;
   text-decoration: underline;
+  margin: 0;
+  background-color: transparent;
+  padding: 0;
 }
 
 .header__pokeball {
