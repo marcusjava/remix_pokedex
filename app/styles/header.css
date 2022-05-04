@@ -25,7 +25,7 @@
 .user__container {
   width: 100%;
   display: flex;
-  justify-content: center;
+
   align-items: center;
   gap: 10px;
 }
@@ -33,6 +33,11 @@
 .user {
   font-weight: bold;
   color: white;
+  width: 60%;
+}
+
+.logout__form {
+  width: 10%;
 }
 
 .logout {

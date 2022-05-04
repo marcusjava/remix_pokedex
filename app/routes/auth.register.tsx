@@ -33,18 +33,18 @@ export type ActionData = {
 
 function validateUsername(username: unknown) {
   if (typeof username !== "string" || username.length < 3) {
-    return `Usernames must be at least 3 characters long`;
+    return `Usuario precisa ter no minimo 3 caracteres`;
   }
 }
 
 function validatePassword(password: unknown) {
   if (typeof password !== "string" || password.length < 6) {
-    return `Passwords must be at least 6 characters long`;
+    return `Usuario precisa ter no minimo 6 caracteres`;
   }
 }
 function validatePasswordConfirm(password_confirm: unknown) {
   if (typeof password_confirm !== "string" || password_confirm.length < 6) {
-    return `Passwords must be at least 6 characters long`;
+    return `Usuario precisa ter no minimo 6 caracteres`;
   }
 }
 

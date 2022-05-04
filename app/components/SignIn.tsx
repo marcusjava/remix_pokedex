@@ -1,4 +1,3 @@
-import { useActionData, useSearchParams } from "@remix-run/react";
 import FormInput from "./FormInput";
 
 export interface FormFields {
@@ -17,18 +16,12 @@ interface Props {
   searchParams?: string;
 }
 
-export default function Login() {
-  const data = useActionData<ActionData>();
-  const [searchParams] = useSearchParams();
+export default function SignIn({ data }: Props) {
   return (
     <div className="card__container">
-      <h3 className="title">Já possuo uma conta</h3>
+      <h3 className="title">Entrar</h3>
       <p className="subtitle">Entre com seu Usuario e Senha</p>
-      <form
-        method="post"
-        action="/authentication/login"
-        className="login__form"
-      >
+      <form method="post" className="login__form">
         <div>
           <FormInput
             id="username"

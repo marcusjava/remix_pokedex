@@ -5,9 +5,20 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
+import SignIn from "~/components/SignIn";
 
 import { db } from "~/utils/db.server";
 import { createUserSession, login } from "~/utils/session.server";
+import authUrl from "~/styles/authentication.css";
+import inputUrl from "~/styles/form_input.css";
+import { useActionData } from "@remix-run/react";
+
+export const links: LinksFunction = () => {
+  return [
+    { rel: "stylesheet", href: authUrl },
+    { rel: "stylesheet", href: inputUrl },
+  ];
+};
 
 export interface FormFields {
   loginType: string;
@@ -23,13 +34,13 @@ type ActionData = {
 
 function validateUsername(username: unknown) {
   if (typeof username !== "string" || username.length < 3) {
-    return `Usernames must be at least 3 characters long`;
+    return `Usuario precisa ter no minimo 3 caracteres`;
   }
 }
 
 function validatePassword(password: unknown) {
   if (typeof password !== "string" || password.length < 6) {
-    return `Passwords must be at least 6 characters long`;
+    return `Usuario precisa ter no minimo 6 caracteres`;
   }
 }
 
@@ -41,21 +52,30 @@ export const action: ActionFunction = async ({
   params,
   request,
 }): Promise<Response> => {
-  const form = await request.formData();
-  const username = form.get("username") as string;
-  const password = form.get("password") as string;
-  if (!username || !password) {
-    return badRequest({ formError: `Form not submitted correctly.` });
+  let { username, password } = Object.fromEntries(await request.formData());
+
+  if (typeof username !== "string" || typeof password !== "string") {
+    return badRequest({ formError: `Formulario não enviado corretamente .` });
   }
 
   const fields = { username, password };
+  const fieldErrors = {
+    username: validateUsername(username),
+    password: validatePassword(password),
+  };
 
+  if (Object.values(fieldErrors).some(Boolean))
+    return badRequest({ fieldErrors, fields });
   try {
     const user = await login(fields);
     if (!user) {
       return badRequest({
         fields,
-        formError: "Username/Password combination is incorrect",
+        fieldErrors: {
+          username: "Usuario/Senha incorretos",
+          password: "Usuario/Senha incorretos",
+        },
+        formError: "Usuario/Senha incorretos",
       });
     }
 
@@ -64,3 +84,12 @@ export const action: ActionFunction = async ({
     throw new Error(error.message);
   }
 };
+
+export default function Login() {
+  const data = useActionData<ActionData>();
+  return (
+    <div className="container">
+      <SignIn data={data} />
+    </div>
+  );
+}

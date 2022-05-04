@@ -19,7 +19,7 @@ export default function Header({ user }: Props) {
           {user?.username ? (
             <>
               <span className="user">Seja bem vindo! {user?.username}</span>
-              <form action="/logout" method="post">
+              <form action="/logout" method="post" className="logout__form">
                 <button type="submit" className="logout">
                   Sair
                 </button>
