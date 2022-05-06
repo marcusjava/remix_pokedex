@@ -1,8 +1,8 @@
 import { Link } from "@remix-run/react";
 
 import logo from "~/assets/logo.png";
-import ball from "~/assets/ball.png";
 import type { getUser } from "~/utils/session.server";
+import Dropdown from "./Dropdown";
 
 type Props = {
   user: Awaited<ReturnType<typeof getUser>>;
@@ -31,7 +31,7 @@ export default function Header({ user }: Props) {
             </Link>
           )}
         </div>
-        <img src={ball} alt="PokeBall" className="header__pokeball" />
+        <Dropdown />
       </div>
     </header>
   );

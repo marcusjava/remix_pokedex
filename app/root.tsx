@@ -15,6 +15,7 @@ import {
 import Header from "./components/Header";
 import globalStylesUrl from "./styles/global.css";
 import headerUrl from "~/styles/header.css";
+import dropdownUrl from "~/styles/dropdown.css";
 import { getUser } from "./utils/session.server";
 
 export const meta: MetaFunction = () => ({
@@ -33,6 +34,7 @@ export const links: LinksFunction = () => [
     href: globalStylesUrl,
   },
   { rel: "stylesheet", href: headerUrl },
+  { rel: "stylesheet", href: dropdownUrl },
 ];
 
 export const loader: LoaderFunction = async ({
