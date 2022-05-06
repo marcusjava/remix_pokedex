@@ -18,3 +18,12 @@ model User {
   username     String   @unique
   passwordHash String
 }
+
+
+model Pokemon {
+    id           String   @id @default(uuid())
+    name String @unique
+    image String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+}

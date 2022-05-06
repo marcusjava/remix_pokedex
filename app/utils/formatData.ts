@@ -112,6 +112,7 @@ export const formatPokemonData = async (
   const abilities = await Promise.all(promises);
 
   return {
+    id: data.id,
     name: data.name,
     image,
     types,

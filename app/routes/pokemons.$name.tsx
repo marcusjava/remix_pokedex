@@ -11,6 +11,7 @@ import notfoundUrl from "~/styles/not_found.css";
 import { getPokemon } from "~/utils/api";
 import { formatPokemonData } from "~/utils/formatData";
 import type { PokemonFormatted } from "~/utils/types";
+import { getUser } from "~/utils/session.server";
 
 export const links: LinksFunction = () => {
   return [
@@ -22,25 +23,28 @@ export const links: LinksFunction = () => {
 
 interface LoaderData {
   pokemon: PokemonFormatted;
+  user: Awaited<ReturnType<typeof getUser>>;
 }
 
 export const loader: LoaderFunction = async ({
   params,
+  request,
 }): Promise<LoaderData | Response> => {
   const { name } = params;
+  const user = await getUser(request);
   const data = await getPokemon(name);
   if (!data) {
     throw new Response("Not found", { status: 404 });
   }
   const pokemon = await formatPokemonData(data);
-  return { pokemon };
+  return { pokemon, user };
 };
 
 export const action: ActionFunction = async ({ request, params }) => {};
 
 export default function PokemonDetail() {
-  const { pokemon } = useLoaderData<LoaderData>();
-  return <Pokemon pokemon={pokemon} />;
+  const { pokemon, user } = useLoaderData<LoaderData>();
+  return <Pokemon pokemon={pokemon} user={user} />;
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {

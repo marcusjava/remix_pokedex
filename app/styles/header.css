@@ -47,6 +47,7 @@
   margin: 0;
   background-color: transparent;
   padding: 0;
+  border: none;
 }
 
 .header__pokeball {

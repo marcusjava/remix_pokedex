@@ -4,10 +4,8 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
 import SignIn from "~/components/SignIn";
 
-import { db } from "~/utils/db.server";
 import { createUserSession, login } from "~/utils/session.server";
 import authUrl from "~/styles/authentication.css";
 import inputUrl from "~/styles/form_input.css";

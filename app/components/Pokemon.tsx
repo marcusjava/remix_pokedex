@@ -1,10 +1,12 @@
+import type { getUser } from "~/utils/session.server";
 import type { PokemonFormatted } from "~/utils/types";
 
 interface Props {
   pokemon: PokemonFormatted;
+  user: Awaited<ReturnType<typeof getUser>>;
 }
 
-export default function Pokemon({ pokemon }: Props) {
+export default function Pokemon({ pokemon, user }: Props) {
   const { hp, specialAttack, specialDefense, defense, attack, speed } =
     pokemon.stats;
   return (
@@ -72,7 +74,7 @@ export default function Pokemon({ pokemon }: Props) {
             </p>
           )}
         </div>
-        <button className="button__danger">Remover</button>
+        {user?.username && <button className="button__danger">Remover</button>}
       </div>
     </div>
   );

@@ -79,6 +79,7 @@ export type PokemonTypes =
   | "ground";
 
 export type Pokemon = {
+  id: number;
   order: number;
   name: string;
   weight: number;
@@ -122,6 +123,7 @@ type ExtractedStats = Pokemon["stats"];
 export type ExtractedStat = ExtractedStats[number];
 
 export type PokemonFormatted = {
+  id: number;
   name: string;
   abilities: {
     ability: string;

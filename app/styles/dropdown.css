@@ -1,0 +1,30 @@
+.dropdown__container {
+  width: 45px;
+  height: 45px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon {
+  width: 34px;
+  height: 34px;
+}
+
+.count {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.count__container {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  left: -5px;
+  bottom: 0px;
+  text-align: center;
+}
