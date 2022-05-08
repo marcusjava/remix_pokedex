@@ -9,6 +9,7 @@ import type {
 } from "./types";
 import axios from "axios";
 import type { AxiosResponse } from "axios";
+import { db } from "./db.server";
 const cardColors = {
   rock: "rgb(148, 81, 81)",
   ghost: "rgb(247, 247, 247)",
@@ -27,21 +28,29 @@ export const formatPokemonsData = async ({
   next,
   previous,
   results,
+  userId,
 }: PokemonsProps): Promise<PokemonsFormatted> => {
   const promises = [];
 
   for (let pokemon of results) {
+    let captured;
     const response = await axios.get<
       AxiosResponse,
       Omit<PokemonsResponseData, "color" | "captured">
     >(pokemon.url);
+
+    if (userId) {
+      captured = await db.pokemon.findFirst({
+        where: { userId, pokemonId: String(response.data?.id) },
+      });
+    }
 
     promises.push({
       id: response.data?.id,
       name: response.data?.name,
       image: response.data?.sprites.other.dream_world.front_default,
       typeName: response.data?.types[0].type.name,
-      captured: false,
+      captured: Boolean(captured),
       color: cardColors[response.data?.types[0].type.name || "normal"],
     });
   }
@@ -52,9 +61,17 @@ export const formatPokemonsData = async ({
 };
 
 export const formatPokemonData = async (
-  data: Pokemon
+  data: Pokemon,
+  userId?: string
 ): Promise<PokemonFormatted> => {
   let hp, attack, defense, speed, specialAttack, specialDefense;
+
+  let captured;
+  if (userId) {
+    captured = await db.pokemon.findFirst({
+      where: { userId, pokemonId: String(data?.id) },
+    });
+  }
 
   data.stats.forEach((item: ExtractedStat) => {
     switch (item.stat.name) {
@@ -121,6 +138,6 @@ export const formatPokemonData = async (
     weight,
     stats: { hp, attack, defense, speed, specialAttack, specialDefense },
     abilities,
-    captured: false,
+    captured: Boolean(captured),
   };
 };

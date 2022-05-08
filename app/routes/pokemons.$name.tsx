@@ -36,7 +36,7 @@ export const loader: LoaderFunction = async ({
   if (!data) {
     throw new Response("Not found", { status: 404 });
   }
-  const pokemon = await formatPokemonData(data);
+  const pokemon = await formatPokemonData(data, user?.id);
   return { pokemon, user };
 };
 

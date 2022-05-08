@@ -4,6 +4,12 @@ export type PokemonsProps = {
   next?: string;
   previous?: string;
   results: { name: string; url: string }[];
+  userId?: string;
+};
+
+export type PokemonProps = {
+  data: Pokemon;
+  userId?: string;
 };
 
 export type ResponseAbility = {

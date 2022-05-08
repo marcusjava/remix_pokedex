@@ -19,6 +19,7 @@ import type { HTMLElementEvent, PokemonsFormatted } from "~/utils/types";
 import Error from "~/components/Error";
 import NotFound from "~/components/NotFound";
 import Navigation from "~/components/Navigation";
+import { getUser } from "~/utils/session.server";
 
 export const links: LinksFunction = () => {
   return [
@@ -42,6 +43,7 @@ export const loader: LoaderFunction = async ({
   params,
 }): Promise<LoaderData> => {
   const url = new URL(request.url);
+  const user = await getUser(request);
   const limit = url.searchParams.get("limit") || "20";
   const offset = url.searchParams.get("offset") || "0";
 
@@ -49,7 +51,10 @@ export const loader: LoaderFunction = async ({
     limit: parseInt(limit),
     offset: parseInt(offset),
   });
-  const { pokemons } = await formatPokemonsData({ results: data.results });
+  const { pokemons } = await formatPokemonsData({
+    results: data.results,
+    userId: user?.id,
+  });
   return { pokemons, limit, offset };
 };
 

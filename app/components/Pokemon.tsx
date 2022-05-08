@@ -74,7 +74,15 @@ export default function Pokemon({ pokemon, user }: Props) {
             </p>
           )}
         </div>
-        {user?.username && <button className="button__danger">Remover</button>}
+        {user?.username && (
+          <form action={`/pokemons/catch/${pokemon.name}`} method="post">
+            {pokemon.captured ? (
+              <button className="button__danger">Remover</button>
+            ) : (
+              <button className="button__danger">Adicionar</button>
+            )}
+          </form>
+        )}
       </div>
     </div>
   );
