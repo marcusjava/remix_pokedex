@@ -18,16 +18,14 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export interface FormFields {
-  loginType: string;
+export interface FormLoginFields {
   username: string;
   password: string;
-  password_confirm: string;
 }
-type ActionData = {
+export type LoginActionData = {
   formError?: string;
-  fieldErrors?: Partial<FormFields>;
-  fields?: Partial<FormFields>;
+  fieldErrors?: Partial<FormLoginFields>;
+  fields?: Partial<FormLoginFields>;
 };
 
 function validateUsername(username: unknown) {
@@ -42,7 +40,7 @@ function validatePassword(password: unknown) {
   }
 }
 
-const badRequest = (data: ActionData) => {
+const badRequest = (data: LoginActionData) => {
   return json(data, { status: 400 });
 };
 
@@ -84,7 +82,7 @@ export const action: ActionFunction = async ({
 };
 
 export default function Login() {
-  const data = useActionData<ActionData>();
+  const data = useActionData<LoginActionData>();
   return (
     <div className="container">
       <SignIn data={data} />

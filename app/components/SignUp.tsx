@@ -1,8 +1,8 @@
-import type { ActionData } from "~/routes/auth.register";
+import type { RegisterActionData } from "~/routes/auth.register";
 import FormInput from "./FormInput";
 
 interface Props {
-  data?: ActionData;
+  data?: RegisterActionData;
   searchParams?: string;
 }
 

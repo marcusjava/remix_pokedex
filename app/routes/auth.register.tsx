@@ -19,16 +19,15 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export interface FormFields {
-  loginType: string;
+export interface FormRegisterFields {
   username: string;
   password: string;
   password_confirm: string;
 }
-export type ActionData = {
+export type RegisterActionData = {
   formError?: string;
-  fieldErrors?: Partial<FormFields>;
-  fields?: Partial<FormFields>;
+  fieldErrors?: Partial<FormRegisterFields>;
+  fields?: Partial<FormRegisterFields>;
 };
 
 function validateUsername(username: unknown) {
@@ -48,7 +47,7 @@ function validatePasswordConfirm(password_confirm: unknown) {
   }
 }
 
-const badRequest = (data: ActionData) => {
+const badRequest = (data: RegisterActionData) => {
   return json(data, { status: 400 });
 };
 
@@ -126,7 +125,7 @@ export const action: ActionFunction = async ({
 };
 
 export default function Register() {
-  const data = useActionData<ActionData>();
+  const data = useActionData<RegisterActionData>();
   const [searchParams] = useSearchParams();
 
   return (

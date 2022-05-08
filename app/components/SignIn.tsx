@@ -1,18 +1,8 @@
+import type { LoginActionData } from "~/routes/auth.login";
 import FormInput from "./FormInput";
 
-export interface FormFields {
-  loginType: string;
-  username: string;
-  password: string;
-}
-type ActionData = {
-  formError?: string;
-  fieldErrors?: Partial<FormFields>;
-  fields?: Partial<FormFields>;
-};
-
 interface Props {
-  data?: ActionData;
+  data?: LoginActionData;
   searchParams?: string;
 }
 
@@ -68,7 +58,7 @@ export default function SignIn({ data }: Props) {
           ) : null}
         </div>
         <div className="button__container">
-          <button className="btn">Criar</button>
+          <button className="btn">Entrar</button>
           <button className="btn__cancel">Cancelar</button>
         </div>
       </form>
