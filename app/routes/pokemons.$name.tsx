@@ -40,8 +40,6 @@ export const loader: LoaderFunction = async ({
   return { pokemon, user };
 };
 
-export const action: ActionFunction = async ({ request, params }) => {};
-
 export default function PokemonDetail() {
   const { pokemon, user } = useLoaderData<LoaderData>();
   return <Pokemon pokemon={pokemon} user={user} />;

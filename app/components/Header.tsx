@@ -26,9 +26,14 @@ export default function Header({ user }: Props) {
               </form>
             </>
           ) : (
-            <Link to="/auth/login" className="user">
-              Entrar
-            </Link>
+            <>
+              <Link to="/auth/login" className="user">
+                Entrar
+              </Link>
+              <Link to="/auth/register" className="user">
+                Registrar
+              </Link>
+            </>
           )}
         </div>
         <Dropdown />

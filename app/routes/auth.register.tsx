@@ -4,7 +4,7 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useActionData, useSearchParams } from "@remix-run/react";
+import { useActionData } from "@remix-run/react";
 import SignUp from "~/components/SignUp";
 
 import { db } from "~/utils/db.server";
@@ -126,7 +126,6 @@ export const action: ActionFunction = async ({
 
 export default function Register() {
   const data = useActionData<RegisterActionData>();
-  const [searchParams] = useSearchParams();
 
   return (
     <div className="container">

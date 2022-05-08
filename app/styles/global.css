@@ -40,3 +40,9 @@ a {
   text-decoration: none;
   color: none;
 }
+
+.error-container {
+  background-color: #ef5350;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+}

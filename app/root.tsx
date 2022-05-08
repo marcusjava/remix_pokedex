@@ -10,6 +10,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
   useLoaderData,
 } from "@remix-run/react";
 import Header from "./components/Header";
@@ -20,8 +21,9 @@ import { getUser } from "./utils/session.server";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "My Pokemon App",
   viewport: "width=device-width,initial-scale=1",
+  keywords: "Remix Pokemon App",
 });
 
 interface LoaderData {
@@ -63,5 +65,26 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <div className="error-container">
+      <h1>
+        {caught.status} {caught.statusText}
+      </h1>
+    </div>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <div className="error-container">
+      <h1>App Error</h1>
+      <pre>{error.message}</pre>
+    </div>
   );
 }
