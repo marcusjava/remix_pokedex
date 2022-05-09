@@ -18,6 +18,8 @@ import globalStylesUrl from "./styles/global.css";
 import headerUrl from "~/styles/header.css";
 import dropdownUrl from "~/styles/dropdown.css";
 import { getUser } from "./utils/session.server";
+import { db } from "./utils/db.server";
+import type { Pokemon } from "@prisma/client";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -26,8 +28,9 @@ export const meta: MetaFunction = () => ({
   keywords: "Remix Pokemon App",
 });
 
-interface LoaderData {
+export interface AppLoaderData {
   user: Awaited<ReturnType<typeof getUser>>;
+  captured?: Pokemon[];
 }
 
 export const links: LinksFunction = () => [
@@ -41,16 +44,23 @@ export const links: LinksFunction = () => [
 
 export const loader: LoaderFunction = async ({
   request,
-}): Promise<LoaderData> => {
+}): Promise<AppLoaderData> => {
+  let captured;
   const user = await getUser(request);
+  if (user) {
+    captured = await db.pokemon.findMany({ where: { userId: user.id } });
+
+    console.log(captured);
+  }
 
   return {
     user,
+    captured,
   };
 };
 
 export default function App() {
-  const { user } = useLoaderData<LoaderData>();
+  const { user } = useLoaderData<AppLoaderData>();
   return (
     <html lang="en">
       <head>

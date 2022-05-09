@@ -1,9 +1,18 @@
+import { useLoaderData } from "@remix-run/react";
 import { useState } from "react";
 import ball from "~/assets/ball.png";
+import type { AppLoaderData } from "~/root";
 import DropdownItems from "./Dropdown-items";
 
-export default function Dropdown() {
+interface Props {
+  userId?: string;
+}
+
+export default function Dropdown({ userId }: Props) {
   const [open, setOpen] = useState<Boolean>(false);
+  const { captured } = useLoaderData<AppLoaderData>();
+  //console.log(captured);
+
   return (
     <>
       <div
@@ -12,10 +21,10 @@ export default function Dropdown() {
       >
         <img src={ball} alt="Pokeball" className="icon" />
         <div className="count__container">
-          <span className="count">0</span>
+          <span className="count">{captured?.length || 0}</span>
         </div>
       </div>
-      {open ? <DropdownItems /> : null}
+      {open ? <DropdownItems captured={captured} /> : null}
     </>
   );
 }

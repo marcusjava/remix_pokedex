@@ -1,14 +1,12 @@
 import { Link } from "@remix-run/react";
 
 import logo from "~/assets/logo.png";
+import type { AppLoaderData } from "~/root";
+import { db } from "~/utils/db.server";
 import type { getUser } from "~/utils/session.server";
 import Dropdown from "./Dropdown";
 
-type Props = {
-  user: Awaited<ReturnType<typeof getUser>>;
-};
-
-export default function Header({ user }: Props) {
+export default function Header({ user }: AppLoaderData) {
   return (
     <header className="header__container">
       <Link to="/pokemons">
@@ -36,7 +34,7 @@ export default function Header({ user }: Props) {
             </>
           )}
         </div>
-        <Dropdown />
+        <Dropdown userId={user?.id} />
       </div>
     </header>
   );

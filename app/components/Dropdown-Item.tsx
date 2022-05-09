@@ -1,3 +1,6 @@
+import type { Pokemon } from "@prisma/client";
+import { Link } from "@remix-run/react";
+
 const cardColors = {
   rock: "rgb(148, 81, 81)",
   ghost: "rgb(247, 247, 247)",
@@ -12,15 +15,21 @@ const cardColors = {
   ground: "#C2B232",
 };
 
-export default function DropdownItem() {
+interface Props {
+  captured?: Pokemon;
+}
+
+export default function DropdownItem({ captured }: Props) {
   return (
-    <div className="dropdown__item">
-      <div className="avatar__container">
-        <img src="" alt="Avatar" className="avatar" />
+    <Link to={`/pokemons/${captured?.name}`}>
+      <div className="dropdown__item">
+        <div className="avatar__container">
+          <img src={captured?.image} alt="Avatar" className="drop_avatar" />
+        </div>
+        <div className="dropdown__item__description">
+          <span>{captured?.name}</span>
+        </div>
       </div>
-      <div className="dropdown__item__description">
-        <span>Item</span>
-      </div>
-    </div>
+    </Link>
   );
 }
