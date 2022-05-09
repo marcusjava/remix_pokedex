@@ -62,7 +62,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const form = await request.formData();
   const searchInput = form.get("search");
   if (!searchInput) {
-    redirect(".");
+    return redirect(".");
   }
   return redirect(`/pokemons/${searchInput}`);
 };

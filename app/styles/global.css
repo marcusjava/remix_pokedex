@@ -46,3 +46,8 @@ a {
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
 }
+
+button::disabled {
+  cursor: none;
+  opacity: 0.5;
+}

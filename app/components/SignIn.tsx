@@ -1,4 +1,5 @@
 import type { LoginActionData } from "~/routes/auth.login";
+import { Form, useTransition } from "@remix-run/react";
 import FormInput from "./FormInput";
 
 interface Props {
@@ -7,11 +8,12 @@ interface Props {
 }
 
 export default function SignIn({ data }: Props) {
+  const transition = useTransition();
   return (
     <div className="card__container">
       <h3 className="title">Entrar</h3>
       <p className="subtitle">Entre com seu Usuario e Senha</p>
-      <form method="post" className="login__form">
+      <Form method="post" className="login__form">
         <div>
           <FormInput
             id="username"
@@ -58,10 +60,16 @@ export default function SignIn({ data }: Props) {
           ) : null}
         </div>
         <div className="button__container">
-          <button className="btn">Entrar</button>
+          <button
+            className="btn"
+            type="submit"
+            disabled={Boolean(transition.submission)}
+          >
+            {transition.submission ? "Fazendo login" : "Entrar"}
+          </button>
           <button className="btn__cancel">Cancelar</button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import type { RegisterActionData } from "~/routes/auth.register";
 import FormInput from "./FormInput";
+import { Form, useTransition } from "@remix-run/react";
 
 interface Props {
   data?: RegisterActionData;
@@ -7,11 +8,12 @@ interface Props {
 }
 
 export default function SignUp({ data, searchParams }: Props) {
+  const transition = useTransition();
   return (
     <div className="card__container">
       <h3 className="title">Registrar</h3>
       <p className="subtitle">Cadastre-se com seu usuario e senha</p>
-      <form method="post" className="signup__form">
+      <Form method="post" className="signup__form">
         <div>
           <FormInput
             id="username"
@@ -90,10 +92,18 @@ export default function SignUp({ data, searchParams }: Props) {
           ) : null}
         </div>
         <div className="button__container">
-          <button className="btn">Criar</button>
-          <button className="btn__cancel">Cancelar</button>
+          <button
+            className="btn"
+            type="submit"
+            disabled={Boolean(transition.submission)}
+          >
+            {transition.submission ? "Criando..." : "Criar"}
+          </button>
+          <button className="btn__cancel" type="reset">
+            Cancelar
+          </button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 }

@@ -84,3 +84,8 @@
   font-size: 1.5rem;
   font-weight: bold;
 }
+
+button::disabled {
+  cursor: none;
+  opacity: 0.5;
+}
