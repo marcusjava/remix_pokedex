@@ -47,6 +47,7 @@ export const loader: LoaderFunction = async ({
 }): Promise<AppLoaderData> => {
   let captured;
   const user = await getUser(request);
+  console.log(user);
   if (user) {
     captured = await db.pokemon.findMany({ where: { userId: user.id } });
   }

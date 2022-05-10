@@ -1,4 +1,6 @@
-# Welcome to Remix!
+<img src="app/assets/pokehome.png" width=400 height=200/><img src="app/assets/pokedetail.png" width=400 height=200/><img src="app/assets/pokelogin.png" width=400 height=200/>
+
+# Welcome to Remix Pokedex App!
 
 - [Remix Docs](https://remix.run/docs)
 
@@ -7,6 +9,9 @@
 From your terminal:
 
 ```sh
+npm install
+npx prisma init --datasource-provider sqlite
+npx prisma db push
 npm run dev
 ```
 
