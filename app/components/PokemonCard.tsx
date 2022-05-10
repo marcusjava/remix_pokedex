@@ -12,7 +12,7 @@ export default function PokemonCard({ pokemon }: Props) {
     <Link to={`/pokemons/${name}`}>
       <div className="pokemon__container" style={{ backgroundColor: color }}>
         <img src={image} alt="Pokemon" className="avatar" />
-        <h4 className="title">{name}</h4>
+        <h2 className="title">{name}</h2>
         <p className="subtitle">{typeName}</p>
         {captured ? (
           <img src={pokeball} alt="Pokeball" className="pokeball" />

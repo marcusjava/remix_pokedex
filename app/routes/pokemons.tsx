@@ -3,6 +3,7 @@ import type {
   LinksFunction,
   LoaderFunction,
 } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import Pokemons from "~/components/Pokemons";
 import SearchInput from "~/components/SearchInput";
@@ -41,10 +42,10 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({
   request,
   params,
-}): Promise<LoaderData> => {
+}): Promise<LoaderData | Response> => {
   const url = new URL(request.url);
   const user = await getUser(request);
-  const limit = url.searchParams.get("limit") || "20";
+  const limit = url.searchParams.get("limit") || "10";
   const offset = url.searchParams.get("offset") || "0";
 
   const data = await getPokemons({
@@ -55,7 +56,10 @@ export const loader: LoaderFunction = async ({
     results: data.results,
     userId: user?.id,
   });
-  return { pokemons, limit, offset };
+  const results: LoaderData = { pokemons, limit, offset };
+  return json(results, {
+    status: 200,
+  });
 };
 
 export const action: ActionFunction = async ({ request, params }) => {

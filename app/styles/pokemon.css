@@ -9,8 +9,8 @@
   margin: 0.3rem;
   border: 1px solid #efefef;
   border-radius: 0.2rem;
-  min-width: 160px;
-  min-height: 200px;
+  min-width: 320px;
+  min-height: 400px;
   text-align: center;
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.089);
   color: #ef5350;
@@ -24,16 +24,16 @@
   font-weight: bold;
 }
 
-.subTitle {
-  font-size: 1rem;
+.subtitle {
+  font-size: 1.5rem;
 }
 
 .avatar {
-  height: 60px;
+  height: 200px;
 }
 .pokeball {
   position: absolute;
-  height: 14px;
+  height: 28px;
   top: 4px;
   right: 4px;
 }
