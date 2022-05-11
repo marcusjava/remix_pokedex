@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function SignIn({ data }: Props) {
-  const transition = useTransition();
   return (
     <div className="card__container">
       <h3 className="title">Entrar</h3>
@@ -60,12 +59,8 @@ export default function SignIn({ data }: Props) {
           ) : null}
         </div>
         <div className="button__container">
-          <button
-            className="btn"
-            type="submit"
-            disabled={Boolean(transition.submission)}
-          >
-            {transition.submission ? "Fazendo login" : "Entrar"}
+          <button className="btn" type="submit">
+            Entrar
           </button>
           <button className="btn__cancel">Cancelar</button>
         </div>

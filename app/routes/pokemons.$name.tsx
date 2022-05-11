@@ -44,7 +44,6 @@ export const loader: LoaderFunction = async ({
 
 export const action: ActionFunction = async ({
   request,
-  params,
 }): Promise<Response> => {
   const form = await request.formData();
   const pokemonId = form.get("pokemonId");
