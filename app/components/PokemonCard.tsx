@@ -8,6 +8,7 @@ interface Props {
 
 export default function PokemonCard({ pokemon }: Props) {
   const { name, image, captured, color, typeName } = pokemon;
+
   return (
     <Link to={`/pokemons/${name}`}>
       <div className="pokemon__container" style={{ backgroundColor: color }}>

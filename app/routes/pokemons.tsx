@@ -15,12 +15,13 @@ import errorUrl from "~/styles/error.css";
 import notfoundUrl from "~/styles/not_found.css";
 import { getPokemons } from "~/utils/api";
 import { formatPokemonsData } from "~/utils/formatData";
-import { useLoaderData, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate, useTransition } from "@remix-run/react";
 import type { HTMLElementEvent, PokemonsFormatted } from "~/utils/types";
 import Error from "~/components/Error";
 import NotFound from "~/components/NotFound";
 import Navigation from "~/components/Navigation";
 import { getUser } from "~/utils/session.server";
+import Loading from "~/components/Loading";
 
 export const links: LinksFunction = () => {
   return [
@@ -56,10 +57,8 @@ export const loader: LoaderFunction = async ({
     results: data.results,
     userId: user?.id,
   });
-  const results: LoaderData = { pokemons, limit, offset };
-  return json(results, {
-    status: 200,
-  });
+  //const results: LoaderData = { pokemons, limit, offset };
+  return { pokemons, limit, offset };
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
@@ -74,10 +73,6 @@ export const action: ActionFunction = async ({ request, params }) => {
 export default function Index() {
   const navigate = useNavigate();
   const { pokemons, limit, offset } = useLoaderData<LoaderData>();
-
-  if (!pokemons || !pokemons.length) {
-    return <h1>Loading...</h1>;
-  }
 
   const handleNavigation = (
     e: HTMLElementEvent<HTMLButtonElement, MouseEvent>

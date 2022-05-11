@@ -25,10 +25,10 @@ export default function Pokemon({ pokemon, user }: Props) {
             {type.name}
           </span>
         ))}
-        <p>Peso: {pokemon.weight}</p>
-        <p>Altura: {pokemon.height}</p>
 
         <div className="stats__container">
+          <p>Peso: {pokemon.weight}</p>
+          <p>Altura: {pokemon.height}</p>
           {hp && (
             <p className="input-progress">
               <label htmlFor="hp">HP</label>

@@ -12,6 +12,7 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
+  useTransition,
 } from "@remix-run/react";
 import Header from "./components/Header";
 import globalStylesUrl from "./styles/global.css";
@@ -20,6 +21,7 @@ import dropdownUrl from "~/styles/dropdown.css";
 import { getUser } from "./utils/session.server";
 import { db } from "./utils/db.server";
 import type { Pokemon } from "@prisma/client";
+import Loading from "./components/Loading";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -47,7 +49,7 @@ export const loader: LoaderFunction = async ({
 }): Promise<AppLoaderData> => {
   let captured;
   const user = await getUser(request);
-  console.log(user);
+
   if (user) {
     captured = await db.pokemon.findMany({ where: { userId: user.id } });
   }
@@ -60,6 +62,9 @@ export const loader: LoaderFunction = async ({
 
 export default function App() {
   const { user } = useLoaderData<AppLoaderData>();
+  const transition = useTransition();
+  console.log(transition);
+
   return (
     <html lang="en">
       <head>
@@ -67,7 +72,8 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Header user={user} />;
+        <Header user={user} />
+        {transition.state === "loading" ? <Loading /> : null}
         <Outlet />
         <ScrollRestoration />
         <Scripts />
