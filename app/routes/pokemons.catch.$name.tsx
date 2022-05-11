@@ -9,6 +9,9 @@ export const action: ActionFunction = async ({ request, params }) => {
   const { name } = params;
   const user = await getUser(request);
   const data = await getPokemon(name);
+  if (!data) {
+    throw new Response("Not found", { status: 404 });
+  }
   const pokemon = await formatPokemonData(data);
   try {
     const captured = await db.pokemon.findFirst({
@@ -29,6 +32,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     }
   } catch (error: any) {
     console.log(error.message);
+    throw new Error(error.message);
   }
   return redirect("/pokemons");
 };

@@ -1,3 +1,4 @@
+import { Form, useTransition } from "@remix-run/react";
 import type { getUser } from "~/utils/session.server";
 import type { PokemonFormatted } from "~/utils/types";
 
@@ -9,6 +10,7 @@ interface Props {
 export default function Pokemon({ pokemon, user }: Props) {
   const { hp, specialAttack, specialDefense, defense, attack, speed } =
     pokemon.stats;
+
   return (
     <div className="detail__container">
       <div className="avatar__container">
@@ -74,14 +76,16 @@ export default function Pokemon({ pokemon, user }: Props) {
             </p>
           )}
         </div>
-        {user?.username && (
-          <form action={`/pokemons/catch/${pokemon.name}`} method="post">
-            {pokemon.captured ? (
-              <button className="button__danger">Remover</button>
-            ) : (
-              <button className="button__danger">Adicionar</button>
-            )}
-          </form>
+        {user?.id && (
+          <Form method="post">
+            <input type="hidden" name="pokemonId" value={pokemon.id} />
+            <input type="hidden" name="name" value={pokemon.name} />
+            <input type="hidden" name="image" value={pokemon.image} />
+            <input type="hidden" name="userId" value={user.id} />
+            <button className="button__danger" type="submit">
+              {pokemon.captured ? " Remover" : "Adicionar"}
+            </button>
+          </Form>
         )}
       </div>
     </div>

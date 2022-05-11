@@ -1,4 +1,5 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { useCatch, useLoaderData, useParams } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/react/routeModules";
 import ErrorComponent from "~/components/Error";
@@ -12,6 +13,7 @@ import { getPokemon } from "~/utils/api";
 import { formatPokemonData } from "~/utils/formatData";
 import type { PokemonFormatted } from "~/utils/types";
 import { getUser } from "~/utils/session.server";
+import { db } from "~/utils/db.server";
 
 export const links: LinksFunction = () => {
   return [
@@ -40,8 +42,50 @@ export const loader: LoaderFunction = async ({
   return { pokemon, user };
 };
 
+export const action: ActionFunction = async ({
+  request,
+  params,
+}): Promise<Response> => {
+  const form = await request.formData();
+  const pokemonId = form.get("pokemonId");
+  const name = form.get("name");
+  const image = form.get("image");
+  const userId = form.get("userId");
+  if (
+    typeof pokemonId !== "string" ||
+    typeof name !== "string" ||
+    typeof image !== "string" ||
+    typeof userId !== "string"
+  ) {
+    throw new Error("Invalid fields");
+  }
+
+  try {
+    const captured = await db.pokemon.findFirst({
+      where: { userId, pokemonId },
+    });
+
+    if (captured && Object.keys(captured).length > 0) {
+      await db.pokemon.delete({ where: { id: captured.id } });
+    } else {
+      await db.pokemon.create({
+        data: {
+          pokemonId,
+          name,
+          image,
+          userId,
+        },
+      });
+    }
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+  return redirect("/pokemons");
+};
+
 export default function PokemonDetail() {
   const { pokemon, user } = useLoaderData<LoaderData>();
+
   return <Pokemon pokemon={pokemon} user={user} />;
 }
 

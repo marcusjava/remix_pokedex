@@ -63,7 +63,6 @@ export const loader: LoaderFunction = async ({
 export default function App() {
   const { user } = useLoaderData<AppLoaderData>();
   const transition = useTransition();
-  console.log(transition);
 
   return (
     <html lang="en">
