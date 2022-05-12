@@ -1,8 +1,10 @@
+import { Form } from "@remix-run/react";
+
 export default function SearchInput() {
   return (
-    <form method="post">
+    <Form method="post">
       <input type="text" name="search" required />
       <button type="submit">Ir</button>
-    </form>
+    </Form>
   );
 }

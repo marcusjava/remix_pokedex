@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 
 import logo from "~/assets/logo.png";
 import type { AppLoaderData } from "~/root";
@@ -17,11 +17,11 @@ export default function Header({ user }: AppLoaderData) {
           {user?.username ? (
             <>
               <span className="user">Seja bem vindo! {user?.username}</span>
-              <form action="/logout" method="post" className="logout__form">
+              <Form action="/logout" method="post" className="logout__form">
                 <button type="submit" className="logout">
                   Sair
                 </button>
-              </form>
+              </Form>
             </>
           ) : (
             <>
