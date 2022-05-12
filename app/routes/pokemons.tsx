@@ -64,10 +64,13 @@ export const loader: LoaderFunction = async ({
 export const action: ActionFunction = async ({ request, params }) => {
   const form = await request.formData();
   const searchInput = form.get("search");
+  if (typeof searchInput !== "string") {
+    return redirect("/pokemons");
+  }
   if (!searchInput) {
     return redirect(".");
   }
-  return redirect(`/pokemons/${searchInput}`);
+  return redirect(`/pokemons/${searchInput.toLowerCase()}`);
 };
 
 export default function Index() {
